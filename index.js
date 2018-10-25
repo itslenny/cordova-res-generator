@@ -217,14 +217,15 @@ function generateForConfig(imageObj, settings, config) {
 
         if (definition.background) {
             new Jimp(definition.size, definition.size, definition.background, (err, bgImage) => {
-                saveImage(bgImage.composite(image, 0, 0));
+                // bgImage.rgba(false);
+                saveImage(bgImage.composite(image, 0, 0).opaque());
             });
         } else {
             saveImage(image);
         }
         
-        function saveImage(image) {
-            image.write(outputFilePath,
+        function saveImage(saveImage) {
+            saveImage.write(outputFilePath,
                 (err) => {
                     if (err) defer.reject(err);
                     //display.info('Generated icon file for ' + outputFilePath);
