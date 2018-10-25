@@ -40,9 +40,10 @@
         "colors": "^1.1.2",
         "commander": "^2.12.2",
         "fs-extra": "^4.0.2",
+        "gauge": "^2.7.4",
         "jimp": "^0.5.4",
         "lodash": "^4.17.11",
-        "gauge": "^2.7.4"
+        "replace-color": "^2.0.0"
     },
     "contributors": [
         {

@@ -3,7 +3,6 @@
 'use strict';
 
 // libs init
-
 var program = require('commander');
 var colors = require('colors');
 var Q = require('bluebird');
@@ -75,7 +74,7 @@ function updatePlatforms(settings) {
             if (iconConfig) {
                 PLATFORMS[platform].definitions[0] = iconConfig.replace('./platforms', settings.configPath);
             }
-            
+
             var splashConfig = PLATFORMS[platform].definitions[1];
             if (splashConfig) {
                 PLATFORMS[platform].definitions[1] = splashConfig.replace('./platforms', settings.configPath);
@@ -214,13 +213,24 @@ function generateForConfig(imageObj, settings, config) {
 
         var outputFilePath = path.join(platformPath, definition.name);
 
-        image.resize(definition.size, definition.size)
-            .write(outputFilePath,
+        image = image.resize(definition.size, definition.size);
+
+        if (definition.background) {
+            new Jimp(definition.size, definition.size, definition.background, (err, bgImage) => {
+                saveImage(bgImage.composite(image, 0, 0));
+            });
+        } else {
+            saveImage(image);
+        }
+        
+        function saveImage(image) {
+            image.write(outputFilePath,
                 (err) => {
                     if (err) defer.reject(err);
                     //display.info('Generated icon file for ' + outputFilePath);
                     defer.resolve();
                 });
+        }
 
         return defer.promise;
     };
@@ -305,8 +315,8 @@ function generate(imageObj, settings) {
     });
 
     return Q.mapSeries(filteredConfigs, (config) => {
-            return generateForConfig(imageObj, settings, config);
-        })
+        return generateForConfig(imageObj, settings, config);
+    })
         .then(() => {
             //display.success("Successfully generated all files");
         });

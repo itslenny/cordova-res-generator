@@ -51,6 +51,12 @@ module.exports = {
             comment: ''
         }, // iPad Pro
         {
+            name: "Default@2x~universal~anyany.png",
+            width: 2732,
+            height: 2732,
+            comment: ''
+        }, // universal
+        {
             name: "Default-Portrait@2x~ipad.png",
             width: 1536,
             height: 2048,
@@ -73,6 +79,18 @@ module.exports = {
             width: 320,
             height: 480,
             comment: ''
-        } // iPhone
+        }, // iPhone
+        {
+            name: "Default-Landscape-2436h.png",
+            width: 2436,
+            height: 1125,
+            comment: ''
+        }, // iPhone X
+        {
+            name: "Default-2436h.png",
+            width: 1125,
+            height: 2436,
+            comment: ''
+        } // iPhone X
     ]
 };
